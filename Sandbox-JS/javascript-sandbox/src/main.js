@@ -1,7 +1,14 @@
 import "./style.css";
-function areaCuadrado(lado) {
-  const area = lado * lado;
-  return area;
+
+function cambiarFotoPrincipal(idMiniatura) {
+  const fotoPrincipal = document.getElementById("foto-principal");
+  const miniatura = document.getElementById(idMiniatura);
+
+  fotoPrincipal.src = miniatura.src;
 }
 
-console.log(areaCuadrado(10));
+const miniatura1 = document.getElementById("miniatura1");
+const miniatura2 = document.getElementById("miniatura2");
+const miniatura3 = document.getElementById("miniatura3");
+
+miniatura1.addEventListener("click", () => cambiarFotoPrincipal("miniatura1"));
