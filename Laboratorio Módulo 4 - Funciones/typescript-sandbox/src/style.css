@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 .turno-display {
   display: flex;
   flex-direction: column;
@@ -23,12 +25,40 @@
   text-align: center;
 }
 
-#reset {
-  color: aqua;
+.botones {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+}
+
+#nuevoTurno {
+  height: 50px;
+  background-color: white;
+  color: black;
+  font-size: 18px;
+}
+
+.cambiarTurno {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  margin: 10px;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  background-color: black;
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
 
   line-height: 1.5;
   font-weight: 400;

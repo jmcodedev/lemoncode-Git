@@ -11,12 +11,17 @@
     <div class="turno-display">
       <h1 class="numero-turno" id="turno">01</h1>
       <p class="texto-turno">Por favor, acérquese al mostrador</p>
-      <div>
+      <div class="botones mod">
         <button id="anterior">Anterior</button>
         <button id="siguiente">Siguiente</button>
       </div>
-      <div>
-        <button type="button">Reset</button>
+      <div class="botones reset">
+        <button type="button" id="reset">Reset</button>
+      </div>
+      <div class="cambiarTurno">
+        <label for="nuevoTurno">Introducir turno nuevo</label>
+        <input type="number" id="nuevoTurno" />
+        <button id="cambiar">Cambiar</button>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
