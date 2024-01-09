@@ -1,30 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+h1 {
+  margin-left: 10px;
+}
 body {
-    max-width: 1280px;
-    font-family: "Montserrat", sans-serif;
-    margin: 0 auto;
+  font-family: "Montserrat", sans-serif;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 footer {
-    background-color: #212429;
-    width: 100%;
-    height: 120px;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
+  background-color: #212429;
+  width: 100%;
+  height: 120px;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
 }
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
 }
 header {
-    background-color: white;
-    position: sticky;
-    z-index: 100;
-    top: 0;
+  background-color: white;
+  position: sticky;
+  z-index: 100;
+  top: 0;
 }
 .sidebar {
   display: flex;
@@ -77,14 +80,20 @@ h1 {
   padding-top: 8px;
 }
 .main-content {
-    padding-left: 10%;
-    padding-right: 10%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+.main-content img {
+  flex: 0 0 calc(33.333% - 10px);
+  margin: 5px;
+}
+
 .cloth {
-  padding: 16px;  
+  padding: 16px;
 }
 .detail {
   display: flex;
@@ -96,7 +105,7 @@ h1 {
 .cloth-photo {
   border-radius: 10px;
 }
-.foot a{
+.foot a {
   color: white;
 }
 .foot {
@@ -108,6 +117,42 @@ h1 {
 .foot img {
   background-color: white;
   border-radius: 50%;
-  border: 10px solid white;  
-    
+  border: 10px solid white;
+}
+
+@media (max-width: 920px) {
+  h1 {
+    text-align: center;
+  }
+  .navbar {
+    flex-direction: column;
+  }
+  .der {
+    display: none;
+  }
+  .navbar-cen {
+    display: none;
+  }
+  footer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+  }
+  .foot {
+    margin-left: 5%;
+    margin-right: 5%;
+    border-bottom: 2px solid white;
+    display: flex;
+    justify-content: start;
+    width: 100%;
+  }
+  .foot:last-child {
+    border-bottom: none;
+  }
+  .cloth {
+    flex: 0 0 calc(50% - 20px);
+  }
 }
