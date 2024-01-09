@@ -24,13 +24,21 @@ function turnoAnterior(turnoPrev: string): string {
 // INICIO Llamada al reset
 
 function clickReset(): void {
-  if (turno !== null && turno !== undefined) {
+  if (
+    turno !== null &&
+    turno !== undefined &&
+    turno instanceof HTMLTitleElement
+  ) {
     turno.innerHTML = "01";
   }
 }
 const reset = document.getElementById("reset");
 
-if (reset !== null && reset !== undefined) {
+if (
+  reset !== null &&
+  reset !== undefined &&
+  reset instanceof HTMLButtonElement
+) {
   reset.addEventListener("click", clickReset);
 }
 
@@ -39,14 +47,22 @@ if (reset !== null && reset !== undefined) {
 // INICIO Llamada avanzar
 
 function clickNext(): void {
-  if (turno !== null && turno !== undefined) {
+  if (
+    turno !== null &&
+    turno !== undefined &&
+    turno instanceof HTMLTitleElement
+  ) {
     turno.innerHTML = siguienteTurno(turno.innerHTML);
   }
 }
 
 const avanzar = document.getElementById("siguiente");
 
-if (avanzar !== null && avanzar !== undefined) {
+if (
+  avanzar !== null &&
+  avanzar !== undefined &&
+  avanzar instanceof HTMLButtonElement
+) {
   avanzar.addEventListener("click", clickNext);
 }
 
@@ -55,14 +71,22 @@ if (avanzar !== null && avanzar !== undefined) {
 // INICIO Llamada retroceder
 
 function clickPrev(): void {
-  if (turno !== null && turno !== undefined) {
+  if (
+    turno !== null &&
+    turno !== undefined &&
+    turno instanceof HTMLTitleElement
+  ) {
     turno.innerHTML = turnoAnterior(turno.innerHTML);
   }
 }
 
 const retroceder = document.getElementById("anterior");
 
-if (retroceder !== null && retroceder !== undefined) {
+if (
+  retroceder !== null &&
+  retroceder !== undefined &&
+  retroceder instanceof HTMLButtonElement
+) {
   retroceder.addEventListener("click", clickPrev);
 }
 
@@ -71,18 +95,26 @@ if (retroceder !== null && retroceder !== undefined) {
 // INICIO Llamada a cambio
 
 function changeTurn(): void {
-  if (turno !== null && turno !== undefined) {
-    const turnoNuevo = document.getElementById("nuevoTurno");
-    if (turnoNuevo instanceof HTMLInputElement) {
-      const formateoNuevo = setTurn(turnoNuevo.value);
-      turno.innerHTML = formateoNuevo;
-    }
+  if (
+    turno !== null &&
+    turno !== undefined &&
+    turno instanceof HTMLTitleElement
+  ) {
+    const turnoNuevo = document.getElementById(
+      "nuevoTurno"
+    ) as HTMLInputElement;
+    const formateoNuevo = setTurn(turnoNuevo.value);
+    turno.innerHTML = formateoNuevo;
   }
 }
 
 const cambiarTurno = document.getElementById("cambiar");
 
-if (cambiarTurno !== null && cambiarTurno !== undefined) {
+if (
+  cambiarTurno !== null &&
+  cambiarTurno !== undefined &&
+  cambiarTurno instanceof HTMLButtonElement
+) {
   cambiarTurno.addEventListener("click", changeTurn);
 }
 //FIN Llamada a cambio
