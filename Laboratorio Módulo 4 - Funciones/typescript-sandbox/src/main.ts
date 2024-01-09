@@ -100,11 +100,16 @@ function changeTurn(): void {
     turno !== undefined &&
     turno instanceof HTMLHeadingElement
   ) {
-    const turnoNuevo = document.getElementById(
-      "nuevoTurno"
-    ) as HTMLInputElement;
-    const formateoNuevo = setTurn(turnoNuevo.value);
-    turno.innerHTML = formateoNuevo;
+    const turnoNuevo = document.getElementById("nuevoTurno");
+
+    if (
+      turnoNuevo !== null &&
+      turnoNuevo !== undefined &&
+      turnoNuevo instanceof HTMLInputElement
+    ) {
+      const formateoNuevo = setTurn(turnoNuevo.value);
+      turno.innerHTML = formateoNuevo;
+    }
   }
 }
 
