@@ -24,11 +24,7 @@ function turnoAnterior(turnoPrev: string): string {
 // INICIO Llamada al reset
 
 function clickReset(): void {
-  if (
-    turno !== null &&
-    turno !== undefined &&
-    turno instanceof HTMLTitleElement
-  ) {
+  if (turno !== null && turno !== undefined && turno instanceof HTMLElement) {
     turno.innerHTML = "01";
   }
 }
@@ -47,11 +43,7 @@ if (
 // INICIO Llamada avanzar
 
 function clickNext(): void {
-  if (
-    turno !== null &&
-    turno !== undefined &&
-    turno instanceof HTMLTitleElement
-  ) {
+  if (turno !== null && turno !== undefined && turno instanceof HTMLElement) {
     turno.innerHTML = siguienteTurno(turno.innerHTML);
   }
 }
@@ -71,11 +63,7 @@ if (
 // INICIO Llamada retroceder
 
 function clickPrev(): void {
-  if (
-    turno !== null &&
-    turno !== undefined &&
-    turno instanceof HTMLTitleElement
-  ) {
+  if (turno !== null && turno !== undefined && turno instanceof HTMLElement) {
     turno.innerHTML = turnoAnterior(turno.innerHTML);
   }
 }
@@ -95,11 +83,7 @@ if (
 // INICIO Llamada a cambio
 
 function changeTurn(): void {
-  if (
-    turno !== null &&
-    turno !== undefined &&
-    turno instanceof HTMLTitleElement
-  ) {
+  if (turno !== null && turno !== undefined && turno instanceof HTMLElement) {
     const turnoNuevo = document.getElementById(
       "nuevoTurno"
     ) as HTMLInputElement;
