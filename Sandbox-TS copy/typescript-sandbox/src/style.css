@@ -1,3 +1,21 @@
+#cartaBocaAbajo {
+  border-radius: 8%;
+  margin-bottom: 25px;
+}
+#misCartas {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 8%;
+  margin-bottom: 25px;
+  justify-content: space-between;
+}
+.miMazo {
+  border-radius: 8%;
+  margin: 10px 10px 10px 10px;
+}
+#pedirCarta {
+  margin-bottom: 25px;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
