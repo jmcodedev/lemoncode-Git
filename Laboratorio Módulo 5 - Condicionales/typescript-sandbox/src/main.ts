@@ -5,6 +5,18 @@ import "./style.css";
 let puntuacion: number = 0;
 
 type Estado = "GAME_OVER" | "PUEDE_CONTINUAR" | "ME_PLANTO" | "HA_GANADO";
+const cartas = [
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/1_as-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/2_dos-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/3_tres-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/4_cuatro-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/5_cinco-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/6_seis-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/7_siete-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/10_sota-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/11_caballo-copas.jpg",
+  "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/12_rey-copas.jpg",
+];
 
 // Función para mostrar la puntuación en todo momento
 
@@ -29,9 +41,10 @@ function muestraPuntuacion(puntos: number): Estado {
   }
 }
 
-/* Función para pedir carta.
-    Genera un número aleatorio hasta que este no sea ni 8 ni 9.
-    Devuelve el número de la carta para ser usado posteriormente.
+/* 
+  Función para pedir carta.
+  Genera un número aleatorio hasta que este no sea ni 8 ni 9.
+  Devuelve el número de la carta para ser usado posteriormente.
 */
 
 function pideCarta(): number {
@@ -42,8 +55,9 @@ function pideCarta(): number {
   return numero;
 }
 
-/* Función para mostrar carta
-    Recibe el número de carta por parámetros.
+/* 
+  Función para mostrar carta
+  Recibe el número de carta por parámetros.
 */
 
 function mostrarCarta(numeroCarta: number): number {
@@ -54,44 +68,34 @@ function mostrarCarta(numeroCarta: number): number {
 
   switch (numeroCarta) {
     case 1:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/1_as-copas.jpg";
+      recurso = cartas[0];
       break;
     case 2:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/2_dos-copas.jpg";
+      recurso = cartas[1];
       break;
     case 3:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/3_tres-copas.jpg";
+      recurso = cartas[2];
       break;
     case 4:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/4_cuatro-copas.jpg";
+      recurso = cartas[3];
       break;
     case 5:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/5_cinco-copas.jpg";
+      recurso = cartas[4];
       break;
     case 6:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/6_seis-copas.jpg";
+      recurso = cartas[5];
       break;
     case 7:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/7_siete-copas.jpg";
+      recurso = cartas[6];
       break;
     case 10:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/10_sota-copas.jpg";
+      recurso = cartas[7];
       break;
     case 11:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/11_caballo-copas.jpg";
+      recurso = cartas[8];
       break;
     case 12:
-      recurso =
-        "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/12_rey-copas.jpg";
+      recurso = cartas[9];
       break;
   }
   nuevaCarta.src = recurso;
@@ -126,15 +130,17 @@ function muestraMensaje(mensaje: string): void {
   }
 }
 
-// Función para valorar el estado del Game Over.
-// Recibe por parámetros el estado actual de la partida y el número de puntos.
-// Devolverá un string del mensaje que será mostrado
-
+/* 
+  Función para valorar el estado del Game Over.
+  Recibe por parámetros el estado actual de la partida y el número de puntos.
+  Devolverá un string del mensaje que será mostrado
+*/
 function gestionarGameOver(estado: Estado, puntosTotal: number): string {
   // Handle de los elementos del DOM
 
   const elementoPedir = document.getElementById("pedirCarta");
   const elementoPlanto = document.getElementById("mePlanto");
+  const elementoFuturo = document.getElementById("mostrarFuturo");
 
   // Variable donde vamos a almacenar el mensaje que será mostrado
 
@@ -146,13 +152,16 @@ function gestionarGameOver(estado: Estado, puntosTotal: number): string {
     elementoPedir &&
     elementoPedir instanceof HTMLButtonElement &&
     elementoPlanto &&
-    elementoPlanto instanceof HTMLButtonElement
+    elementoPlanto instanceof HTMLButtonElement &&
+    elementoFuturo &&
+    elementoFuturo instanceof HTMLButtonElement
   ) {
     // Si se ha recibido por parámetros es estado "GAME_OVER" solo se podrá hacer click a "Nueva partida" y mostrará al usuario el GAME OVER
 
     if (estado === "GAME_OVER") {
       elementoPedir.disabled = true;
       elementoPlanto.disabled = true;
+      elementoFuturo.disabled = false;
       mensaje =
         'Vaya! Parece que te has pasado. Pulsa "Nueva Partida" para volver a probar suerte';
     }
@@ -161,6 +170,7 @@ function gestionarGameOver(estado: Estado, puntosTotal: number): string {
     else if (estado === "ME_PLANTO") {
       elementoPedir.disabled = true;
       elementoPlanto.disabled = true;
+      elementoFuturo.disabled = false;
       if (puntosTotal < 4) {
         mensaje = "Has sido muy conservador.";
       } else if (puntosTotal === 5) {
@@ -178,6 +188,7 @@ function gestionarGameOver(estado: Estado, puntosTotal: number): string {
     else if (estado === "HA_GANADO") {
       elementoPedir.disabled = true;
       elementoPlanto.disabled = true;
+      elementoFuturo.disabled = false;
       mensaje = mensaje = "¡Lo has clavado! ¡Enhorabuena!";
     }
   }
@@ -190,20 +201,42 @@ function gestionarGameOver(estado: Estado, puntosTotal: number): string {
 // Función para comenzar una nueva partida. No devuelve nada.
 
 const nuevaPartida = (): void => {
-  // Handle del elemento DIV 'misCartas'
+  // Handle del elemento DIV 'misCartas' y la futura carta
 
   const misCartasDiv = document.getElementById("misCartas");
+  const miFuturaCarta = document.getElementById("futuraCarta");
 
-  // Vaciamos el DIV
+  // Vaciamos el DIV y ocultamos la futura carta
 
-  if (misCartasDiv && misCartasDiv instanceof HTMLDivElement) {
+  if (
+    misCartasDiv &&
+    misCartasDiv instanceof HTMLDivElement &&
+    miFuturaCarta &&
+    miFuturaCarta instanceof HTMLImageElement
+  ) {
+    miFuturaCarta.style.display = "none";
     while (misCartasDiv.firstChild) {
       misCartasDiv.removeChild(misCartasDiv.firstChild);
     }
   }
 };
 
-// Cuando cargue el DOM muestra la puntuación que será 0 inicialmente.
+/*
+  Función para que el usuario sepa que hubiera pasado en caso de seguir jugando.
+  Interactua con la imagen "futuraCarta".
+  Le asigna un src aleatorio del array de cartas establecido arriba.
+  No se utilizan las funciones pideCarta ni mostrarCarta porque el resultado de la futura carta no va a computar en la puntuación.
+*/
+
+function queHabriaPasado(): void {
+  const futuraCarta = document.getElementById("futuraCarta");
+  if (futuraCarta && futuraCarta instanceof HTMLImageElement) {
+    futuraCarta.style.display = "flex";
+    futuraCarta.src = cartas[Math.floor(Math.random() * cartas.length)];
+  }
+}
+
+// Cuando termine de cargar el DOM muestra la puntuación que será 0 inicialmente.
 
 document.addEventListener("DOMContentLoaded", () => {
   muestraPuntuacion(puntuacion);
@@ -237,8 +270,12 @@ const handleCompruebaPlanto = () => {
 const handlePlantar = document.getElementById("mePlanto");
 const handleClickPedir = document.getElementById("pedirCarta");
 const handleNuevaPartida = document.getElementById("nuevaPartida");
+const handleFuturo = document.getElementById("mostrarFuturo");
 
-// Valoramos si los botones existen y si son elementos HTML
+/* 
+  Valoramos si los botones existen y si son elementos HTML.
+  Quedamos a la espera de que se haga click en alguno de los botones.
+*/
 
 if (
   handleClickPedir &&
@@ -248,6 +285,7 @@ if (
   handleNuevaPartida &&
   handleNuevaPartida instanceof HTMLButtonElement
 ) {
+  handleFuturo?.addEventListener("click", queHabriaPasado);
   handleClickPedir.addEventListener("click", handleCompruebaClick);
   handlePlantar.addEventListener("click", handleCompruebaPlanto);
   handleNuevaPartida.addEventListener("click", () => {
