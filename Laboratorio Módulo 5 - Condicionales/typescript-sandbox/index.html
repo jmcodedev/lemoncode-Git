@@ -10,13 +10,21 @@
     <div id="app">
       <h1>Juego del siete y medio</h1>
       <div id="cartas">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg"
-          id="cartaBocaAbajo"
-        />
+        <div class="cartasSuperiores">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg"
+            id="cartaBocaAbajo"
+          />
+
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg"
+            id="futuraCarta"
+          />
+        </div>
         <div id="misCartas"></div>
         <button id="pedirCarta">Pedir carta</button>
         <button id="mePlanto">Me planto</button>
+        <button id="mostrarFuturo" disabled>¿Que habría pasado?</button>
       </div>
       <button id="nuevaPartida">Nueva partida</button>
       <div id="puntuacionTotal"></div>

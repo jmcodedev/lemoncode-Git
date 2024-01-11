@@ -2,6 +2,16 @@
   border-radius: 8%;
   margin-bottom: 25px;
 }
+#futuraCarta {
+  border-radius: 8%;
+  margin-bottom: 25px;
+  display: none;
+  opacity: 50%;
+}
+.cartasSuperiores {
+  display: flex;
+  justify-content: space-around;
+}
 #misCartas {
   display: flex;
   flex-wrap: wrap;
