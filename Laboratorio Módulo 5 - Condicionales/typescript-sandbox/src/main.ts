@@ -1,5 +1,3 @@
-// TODO - Botón nueva partida
-
 import "./style.css";
 
 let puntuacion: number = 0;
