@@ -17,7 +17,7 @@
   flex-wrap: wrap;
   border-radius: 8%;
   margin-bottom: 25px;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .miMazo {
   border-radius: 8%;
