@@ -2,144 +2,148 @@
 <html>
   <head>
     <title>Ejemplo tienda</title>
-    <link rel="stylesheet" href="src/style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
       <nav class="navbar">
-        <div class="sidebar izq">
-          <img
-            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-menu-burguer.svg"
-            alt="Menú"
-            href="#"
-          />
-        </div>
-        <div class="navbar-cen">
-          <ul>
-            <li><a href="#">MODA MUJER</a></li>
-            <li><a href="#">MODA HOMBRE</a></li>
-            <li><a href="#">NUEVA COLECCIÓN</a></li>
-            <li><a href="#">COLECCIONES ESPECIALES</a></li>
-          </ul>
-        </div>
-        <div class="sidebar der">
-          <img
-            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-user.svg"
-            alt="Usuario"
-            href="#"
-            class="icon"
-          />
-          <img
-            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-heart.svg"
-            alt="Favoritos"
-            href="#"
-            class="icon"
-          />
-          <img
-            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-shopping-cart.svg"
-            alt="Carrito"
-            href="#"
-            class="icon"
-          />
-        </div>
+        <img
+          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-menu-burguer.svg"
+          alt="Menú"
+          href="#"
+          class="icon"
+          id="menu-burger"
+        />
+        <ul>
+          <li><a href="#">MODA MUJER</a></li>
+          <li><a href="#">MODA HOMBRE</a></li>
+          <li><a href="#">NUEVA COLECCIÓN</a></li>
+          <li><a href="#">COLECCIONES ESPECIALES</a></li>
+        </ul>
+
+        <img
+          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-user.svg"
+          alt="Usuario"
+          href="#"
+          class="icon"
+          id="icono-usuario"
+        />
+        <img
+          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-heart.svg"
+          alt="Favoritos"
+          href="#"
+          class="icon"
+          id="icono-fav"
+        />
+        <img
+          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-shopping-cart.svg"
+          alt="Carrito"
+          href="#"
+          class="icon"
+          id="icono-cart"
+        />
       </nav>
-      <div class="separador"></div>
     </header>
-    <h1>NUEVAS COLECCIONES</h1>
-    <div class="main-content">
-      <div class="cloth first">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-1.jpg"
-          alt="Camisa"
-          class="cloth-photo"
-        />
-        <div class="detail cloth-1">
-          <a>Camisa</a>
-          <a class="price">25.00 €</a>
+    <main class="main-content">
+      <h1>NUEVAS COLECCIONES</h1>
+      <div class="main-container">
+        <div class="prenda">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-1.jpg"
+            alt="Camisa"
+            class="cloth-photo"
+          />
+          <div class="detalle">
+            <a>Camisa</a>
+            <strong>25.00 €</strong>
+          </div>
+        </div>
+        <div class="prenda">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-2.jpg"
+            alt="Camiseta"
+            class="cloth-photo"
+          />
+          <div class="detalle">
+            <a>Camiseta</a>
+            <strong>22.99 €</strong>
+          </div>
+        </div>
+        <div class="prenda">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-3.jpg"
+            alt="Vestido"
+            class="cloth-photo"
+          />
+          <div class="detalle">
+            <a>Vestido</a>
+            <strong>34.99 €</strong>
+          </div>
+        </div>
+        <div class="prenda">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-4.jpg"
+            alt="Vaqueros"
+            class="cloth-photo"
+          />
+          <div class="detalle">
+            <a>Vaqueros</a>
+            <strong>79.99 €</strong>
+          </div>
+        </div>
+        <div class="prenda">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-5.jpg"
+            alt="Polo"
+            class="cloth-photo"
+          />
+          <div class="detalle">
+            <a>Polo</a>
+            <strong>44.95 €</strong>
+          </div>
+        </div>
+        <div class="prenda">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-6.jpg"
+            alt="Camisa"
+            class="cloth-photo"
+          />
+          <div class="detalle">
+            <a>Camisa</a>
+            <strong>44.99 €</strong>
+          </div>
         </div>
       </div>
-      <div class="cloth second">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-2.jpg"
-          alt="Camiseta"
-          class="cloth-photo"
-        />
-        <div class="detail cloth-2">
-          <a>Camiseta</a>
-          <a class="price">22.99 €</a>
-        </div>
-      </div>
-      <div class="cloth third">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-3.jpg"
-          alt="Vestido"
-          class="cloth-photo"
-        />
-        <div class="detail cloth-3">
-          <a>Vestido</a>
-          <a class="price">34.99 €</a>
-        </div>
-      </div>
-      <div class="cloth fourth">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-4.jpg"
-          alt="Vaqueros"
-          class="cloth-photo"
-        />
-        <div class="detail cloth-4">
-          <a>Vaqueros</a>
-          <a class="price">79.99 €</a>
-        </div>
-      </div>
-      <div class="cloth fifth">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-5.jpg"
-          alt="Polo"
-          class="cloth-photo"
-        />
-        <div class="detail cloth-5">
-          <a>Polo</a>
-          <a class="price">44.95 €</a>
-        </div>
-      </div>
-      <div class="cloth sixth">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/images/image-6.jpg"
-          alt="Camisa"
-          class="cloth-photo"
-        />
-        <div class="detail cloth-6">
-          <a>Camisa</a>
-          <a class="price">44.99 €</a>
-        </div>
-      </div>
-    </div>
+    </main>
     <footer>
-      <div class="foot item-1">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-truck.svg"
-          alt="entrega"
-          class="footicon"
-        />
+      <div class="elementoFooter">
+        <div class="footicon">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-truck.svg"
+            alt="entrega"
+          />
+        </div>
         <a>Entrega</a>
       </div>
-      <div class="foot item-2">
+      <div class="elementoFooter">
         <a>Devoluciones y cambios</a>
       </div>
-      <div class="foot item-3">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-phone.svg"
-          alt="teléfono"
-          class="footicon"
-        />
+      <div class="elementoFooter">
+        <div class="footicon">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-phone.svg"
+            alt="teléfono"
+          />
+        </div>
         <a>+375 (29) 749-18-23</a>
       </div>
-      <div class="foot item-4">
-        <img
-          src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-mail.svg"
-          alt="entrega"
-          class="footicon"
-        />
+      <div class="elementoFooter">
+        <div class="footicon">
+          <img
+            src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/online-shop/icons/icon-mail.svg"
+            alt="entrega"
+          />
+        </div>
         <a>shop@omix.com</a>
       </div>
     </footer>
