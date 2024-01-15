@@ -4,6 +4,7 @@ import {
   estadoPartida,
   generarNumeroCarta,
   sumarPuntuacion,
+  puntuacionSumada,
 } from "./motor";
 import { Estado, partida, generarUrlCarta } from "./modelo";
 
@@ -12,11 +13,11 @@ const elementoPedir = document.getElementById("pedirCarta");
 const elementoMePlanto = document.getElementById("mePlanto");
 const elementoMostrarFuturo = document.getElementById("mostrarFuturo");
 const elementoNuevaPartida = document.getElementById("nuevaPartida");
+const elementoCartaBocaAbajo = document.getElementById("cartaBocaAbajo");
+const elementoMisCartas = document.getElementById("misCartas");
 // Función para interactuar con el DOM y mostrar la carta generada.
 // Obtiene: URL de la carta y el estado de la partida.
 export const mostrarCarta = (urlCarta: string, estadoPartida: Estado): void => {
-  const elementoCartaBocaAbajo = document.getElementById("cartaBocaAbajo");
-
   // En caso de que el estado obtenido sea "ME_PLANTO" mostrará la carta con baja opacidad para que el usuario
   // sepa que es lo que hubiera pasado si se hubieran pedido más cartas.
 
@@ -34,30 +35,39 @@ export const mostrarCarta = (urlCarta: string, estadoPartida: Estado): void => {
     const nuevaCarta = document.createElement("img");
     nuevaCarta.src = urlCarta;
     nuevaCarta.classList.add("miMazo");
-    const misCartas = document.getElementById("misCartas");
-    if (misCartas && misCartas instanceof HTMLDivElement) {
-      misCartas.appendChild(nuevaCarta);
+
+    if (elementoMisCartas && elementoMisCartas instanceof HTMLDivElement) {
+      elementoMisCartas.appendChild(nuevaCarta);
     }
   }
 };
 
-// Función para interactuar con los botones del DOM y permitir únicamente que se pulse el botón "¿Que habría pasado?" y "Nueva partida"
-export const gestionarGameOver = (): void => {
-  const elementoPedirCarta = document.getElementById("pedirCarta");
-  const elementoGOMePlanto = document.getElementById("mePlanto");
-  const elementoFuturo = document.getElementById("mostrarFuturo");
-
+const deshabilitarPorPlantarse = () => {
   if (
-    elementoFuturo &&
-    elementoFuturo instanceof HTMLButtonElement &&
-    elementoGOMePlanto &&
-    elementoGOMePlanto instanceof HTMLButtonElement &&
-    elementoPedirCarta &&
-    elementoPedirCarta instanceof HTMLButtonElement
+    elementoPedir &&
+    elementoPedir instanceof HTMLButtonElement &&
+    elementoMostrarFuturo &&
+    elementoMostrarFuturo instanceof HTMLButtonElement
   ) {
-    elementoFuturo.disabled = false;
-    elementoPedirCarta.disabled = true;
-    elementoGOMePlanto.disabled = true;
+    elementoPedir.disabled = true;
+    elementoMostrarFuturo.disabled = false;
+  }
+};
+
+// Función para interactuar con los botones del DOM y permitir únicamente que se pulse el botón "¿Que habría pasado?" y "Nueva partida"
+export const gestionarGameOver = (estado: Estado): void => {
+  if (
+    elementoMostrarFuturo &&
+    elementoMostrarFuturo instanceof HTMLButtonElement &&
+    elementoMePlanto &&
+    elementoMePlanto instanceof HTMLButtonElement &&
+    elementoPedir &&
+    elementoPedir instanceof HTMLButtonElement &&
+    estado === "GAME_OVER"
+  ) {
+    elementoMostrarFuturo.disabled = false;
+    elementoPedir.disabled = true;
+    elementoMePlanto.disabled = true;
   }
 };
 
@@ -88,30 +98,24 @@ export const mostrarPuntuacion = (puntos: number): void => {
 // Función que elimina todos los elementos del div "misCartas" y deja la puntuación a 0
 // También devuelve los botones a su estado original.
 export const nuevaPartida = () => {
-  const elementoMisCartas = document.getElementById("misCartas");
-  const elementoBtnPedir = document.getElementById("pedirCarta");
-  const elementoBtnMePlanto = document.getElementById("mePlanto");
-  const elementoBtnFuturo = document.getElementById("mostrarFuturo");
-  const elementoMazo = document.getElementById("cartaBocaAbajo");
-
   if (
     elementoMisCartas &&
     elementoMisCartas instanceof HTMLDivElement &&
-    elementoBtnMePlanto &&
-    elementoBtnMePlanto instanceof HTMLButtonElement &&
-    elementoBtnPedir &&
-    elementoBtnPedir instanceof HTMLButtonElement &&
-    elementoBtnFuturo &&
-    elementoBtnFuturo instanceof HTMLButtonElement &&
-    elementoMazo &&
-    elementoMazo instanceof HTMLImageElement
+    elementoMePlanto &&
+    elementoMePlanto instanceof HTMLButtonElement &&
+    elementoPedir &&
+    elementoPedir instanceof HTMLButtonElement &&
+    elementoMostrarFuturo &&
+    elementoMostrarFuturo instanceof HTMLButtonElement &&
+    elementoCartaBocaAbajo &&
+    elementoCartaBocaAbajo instanceof HTMLImageElement
   ) {
-    elementoBtnMePlanto.disabled = false;
-    elementoBtnPedir.disabled = false;
-    elementoBtnFuturo.disabled = true;
-    elementoMazo.src =
+    elementoMePlanto.disabled = false;
+    elementoPedir.disabled = false;
+    elementoMostrarFuturo.disabled = true;
+    elementoCartaBocaAbajo.src =
       "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
-    elementoMazo.style.opacity = "100%";
+    elementoCartaBocaAbajo.style.opacity = "100%";
     while (elementoMisCartas.firstChild) {
       elementoMisCartas.removeChild(elementoMisCartas.firstChild);
     }
@@ -121,15 +125,7 @@ export const nuevaPartida = () => {
 
 // Función que ejecutará el botón "Me planto"
 export const handlePlanto = () => {
-  if (
-    elementoPedir &&
-    elementoPedir instanceof HTMLButtonElement &&
-    elementoMostrarFuturo &&
-    elementoMostrarFuturo instanceof HTMLButtonElement
-  ) {
-    elementoPedir.disabled = true;
-    elementoMostrarFuturo.disabled = false;
-  }
+  deshabilitarPorPlantarse();
   const mensajePlanto: string = generarMensaje(
     partida.puntuacionActual,
     "ME_PLANTO"
@@ -160,16 +156,15 @@ const handlePedir = () => {
   const numeroCarta: number = generarNumeroCarta();
   const urlNuevaCarta = generarUrlCarta(numeroCarta);
   mostrarCarta(urlNuevaCarta, "PUEDE_CONTINUAR");
-  partida.puntuacionActual = sumarPuntuacion(
+  const puntuacionCalculada = sumarPuntuacion(
     numeroCarta,
     partida.puntuacionActual
   );
+  puntuacionSumada(puntuacionCalculada);
   mostrarPuntuacion(partida.puntuacionActual);
   const estado = estadoPartida(partida.puntuacionActual);
 
-  if (estado === "GAME_OVER" || estado === "HA_GANADO") {
-    gestionarGameOver();
-  }
+  gestionarGameOver(estado);
 
   const mensaje: string = generarMensaje(partida.puntuacionActual, estado);
   mostrarMensaje(mensaje);
