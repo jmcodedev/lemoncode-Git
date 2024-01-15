@@ -24,6 +24,10 @@ export const sumarPuntuacion = (
   // Ternario que devuelve los puntos + el valor de la carta teniendo en cuenta si es inferior a 10.
   numeroCarta < 10 ? puntosActuales + numeroCarta : puntosActuales + 0.5;
 
+export const puntuacionSumada = (puntosSumados: number): void => {
+  partida.puntuacionActual = puntosSumados;
+};
+
 // Función que valor el estado actual de la partida.
 // Obtiene: Puntos actuales de la partida.
 // Devuelve: Valor tipo Estado, teniendo en cuenta los puntos que se han obtenido por parámetros
