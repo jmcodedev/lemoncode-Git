@@ -5,7 +5,6 @@ let mensaje = "";
 let puntuacion: number = 0; // Variable para almacenar la puntuación
 
 const elementoCartaBocaAbajo = document.getElementById("cartaBocaAbajo");
-const elementoFuturaCarta = document.getElementById("futuraCarta");
 const elementoMisCartas = document.getElementById("misCartas");
 const elementoPedirCarta = document.getElementById("pedirCarta");
 const elementoMePlanto = document.getElementById("mePlanto");
@@ -156,7 +155,6 @@ const generarMensajePlanto = (puntos: number): void => {
 
 // Funcion que interactua con el DOM para mostrar el mensaje generado.
 const mostrarMensaje = (mensaje: string): void => {
-  const elementoMensaje = document.getElementById("mensaje");
   if (
     elementoMensaje !== null &&
     elementoMensaje !== undefined &&
