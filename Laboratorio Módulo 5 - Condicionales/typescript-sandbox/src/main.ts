@@ -96,6 +96,10 @@ const sumarPuntuacion = (numeroCarta: number, puntosActuales: number): number =>
   // Ternario que devuelve los puntos + el valor de la carta teniendo en cuenta si es inferior a 10.
   numeroCarta < 10 ? puntosActuales + numeroCarta : puntosActuales + 0.5;
 
+const puntuacionSumada = (puntosSumados: number): void => {
+  puntuacion = puntosSumados;
+};
+
 // Función que valor el estado actual de la partida.
 // Obtiene: Puntos actuales de la partida.
 // Devuelve: Valor tipo Estado, teniendo en cuenta los puntos que se han obtenido por parámetros
@@ -110,7 +114,7 @@ const estadoPartida = (puntos: number): Estado => {
 };
 
 // Función para interactuar con los botones del DOM y permitir únicamente que se pulse el botón "¿Que habría pasado?" y "Nueva partida"
-const gestionarGameOver = (): void => {
+const gestionarGameOver = (estado: Estado): void => {
   const elementoPedirCarta = document.getElementById("pedirCarta");
   const elementoGOMePlanto = document.getElementById("mePlanto");
   const elementoFuturo = document.getElementById("mostrarFuturo");
@@ -121,7 +125,8 @@ const gestionarGameOver = (): void => {
     elementoGOMePlanto &&
     elementoGOMePlanto instanceof HTMLButtonElement &&
     elementoPedirCarta &&
-    elementoPedirCarta instanceof HTMLButtonElement
+    elementoPedirCarta instanceof HTMLButtonElement &&
+    estado === "GAME_OVER"
   ) {
     elementoFuturo.disabled = false;
     elementoPedirCarta.disabled = true;
@@ -210,6 +215,18 @@ const elementoMePlanto = document.getElementById("mePlanto");
 const elementoMostrarFuturo = document.getElementById("mostrarFuturo");
 const elementoNuevaPartida = document.getElementById("nuevaPartida");
 
+const deshabilitarPorPlantarse = () => {
+  if (
+    elementoPedir &&
+    elementoPedir instanceof HTMLButtonElement &&
+    elementoMostrarFuturo &&
+    elementoMostrarFuturo instanceof HTMLButtonElement
+  ) {
+    elementoPedir.disabled = true;
+    elementoMostrarFuturo.disabled = false;
+  }
+};
+
 // Función que ejecutará el botón "Nueva partida"
 const handleNuevaPartida = () => {
   nuevaPartida();
@@ -222,13 +239,12 @@ const handlePedir = () => {
   const numeroCarta: number = generarNumeroCarta();
   const urlNuevaCarta = generarUrlCarta(numeroCarta);
   mostrarCarta(urlNuevaCarta, "PUEDE_CONTINUAR");
-  puntuacion = sumarPuntuacion(numeroCarta, puntuacion);
+  const puntuacionCalculada: number = sumarPuntuacion(numeroCarta, puntuacion);
+  puntuacionSumada(puntuacionCalculada);
   mostrarPuntuacion(puntuacion);
   const estado = estadoPartida(puntuacion);
 
-  if (estado === "GAME_OVER" || estado === "HA_GANADO") {
-    gestionarGameOver();
-  }
+  gestionarGameOver(estado);
 
   const mensaje: string = generarMensaje(puntuacion, estado);
   mostrarMensaje(mensaje);
@@ -236,15 +252,7 @@ const handlePedir = () => {
 
 // Función que ejecutará el botón "Me planto"
 const handlePlanto = () => {
-  if (
-    elementoPedir &&
-    elementoPedir instanceof HTMLButtonElement &&
-    elementoMostrarFuturo &&
-    elementoMostrarFuturo instanceof HTMLButtonElement
-  ) {
-    elementoPedir.disabled = true;
-    elementoMostrarFuturo.disabled = false;
-  }
+  deshabilitarPorPlantarse();
   const mensajePlanto: string = generarMensaje(puntuacion, "ME_PLANTO");
   mostrarMensaje(mensajePlanto);
 };
