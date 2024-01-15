@@ -1,10 +1,10 @@
 import "./style.css";
 import {
-  generarMensaje,
   estadoPartida,
   generarNumeroCarta,
   sumarPuntuacion,
   puntuacionSumada,
+  generarNumeroAleatorio,
 } from "./motor";
 import { Estado, partida, generarUrlCarta } from "./modelo";
 
@@ -15,6 +15,7 @@ const elementoMostrarFuturo = document.getElementById("mostrarFuturo");
 const elementoNuevaPartida = document.getElementById("nuevaPartida");
 const elementoCartaBocaAbajo = document.getElementById("cartaBocaAbajo");
 const elementoMisCartas = document.getElementById("misCartas");
+let mensaje = "";
 // Función para interactuar con el DOM y mostrar la carta generada.
 // Obtiene: URL de la carta y el estado de la partida.
 export const mostrarCarta = (urlCarta: string, estadoPartida: Estado): void => {
@@ -55,7 +56,7 @@ const deshabilitarPorPlantarse = () => {
 };
 
 // Función para interactuar con los botones del DOM y permitir únicamente que se pulse el botón "¿Que habría pasado?" y "Nueva partida"
-export const gestionarGameOver = (estado: Estado): void => {
+export const gestionarPartida = (estado: Estado): void => {
   if (
     elementoMostrarFuturo &&
     elementoMostrarFuturo instanceof HTMLButtonElement &&
@@ -66,8 +67,12 @@ export const gestionarGameOver = (estado: Estado): void => {
     estado === "GAME_OVER"
   ) {
     elementoMostrarFuturo.disabled = false;
-    elementoPedir.disabled = true;
     elementoMePlanto.disabled = true;
+    elementoPedir.disabled = true;
+    mensaje =
+      "🪦 Vaya! Parece que te has pasado. Pulsa 'Nueva Partida' para volver a probar suerte 🪦";
+  } else if (estado === "HA_GANADO") {
+    mensaje = "🥳 ¡Lo has clavado! ¡Enhorabuena! 🥳";
   }
 };
 
@@ -80,6 +85,16 @@ export const mostrarMensaje = (mensaje: string): void => {
     elementoMensaje instanceof HTMLDivElement
   ) {
     elementoMensaje.innerHTML = mensaje;
+  }
+};
+
+export const generarMensajePlanto = (puntos: number): void => {
+  if (puntos < 4) {
+    mensaje = "Has sido muy conservador";
+  } else if (puntos === 5) {
+    mensaje = "Te ha entrado el canguelo eh?";
+  } else if (puntos >= 6 || puntos <= 7) {
+    mensaje = "Casi casi...";
   }
 };
 
@@ -124,18 +139,16 @@ export const nuevaPartida = () => {
 };
 
 // Función que ejecutará el botón "Me planto"
-export const handlePlanto = () => {
+const handlePlanto = () => {
   deshabilitarPorPlantarse();
-  const mensajePlanto: string = generarMensaje(
-    partida.puntuacionActual,
-    "ME_PLANTO"
-  );
-  mostrarMensaje(mensajePlanto);
+  generarMensajePlanto(partida.puntuacionActual);
+  mostrarMensaje(mensaje);
 };
 
 // Función que ejecutará el botón "¿Que habría pasado?"
 export const handleFuturo = () => {
-  const futuroNumCarta: number = generarNumeroCarta();
+  const numeroAleatorio = generarNumeroAleatorio();
+  const futuroNumCarta: number = generarNumeroCarta(numeroAleatorio);
   const urlFuturaCarta = generarUrlCarta(futuroNumCarta);
   mostrarCarta(urlFuturaCarta, "ME_PLANTO");
   partida.puntuacionActual = sumarPuntuacion(
@@ -153,10 +166,11 @@ export const handleNuevaPartida = () => {
 
 // Función que ejecutará el botón "Pedir carta"
 const handlePedir = () => {
-  const numeroCarta: number = generarNumeroCarta();
+  const numeroAleatorioCarta = generarNumeroAleatorio();
+  const numeroCarta: number = generarNumeroCarta(numeroAleatorioCarta);
   const urlNuevaCarta = generarUrlCarta(numeroCarta);
   mostrarCarta(urlNuevaCarta, "PUEDE_CONTINUAR");
-  const puntuacionCalculada = sumarPuntuacion(
+  const puntuacionCalculada: number = sumarPuntuacion(
     numeroCarta,
     partida.puntuacionActual
   );
@@ -164,9 +178,7 @@ const handlePedir = () => {
   mostrarPuntuacion(partida.puntuacionActual);
   const estado = estadoPartida(partida.puntuacionActual);
 
-  gestionarGameOver(estado);
-
-  const mensaje: string = generarMensaje(partida.puntuacionActual, estado);
+  gestionarPartida(estado);
   mostrarMensaje(mensaje);
 };
 

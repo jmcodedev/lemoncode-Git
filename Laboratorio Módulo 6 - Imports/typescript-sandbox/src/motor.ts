@@ -1,12 +1,11 @@
 import { Estado, partida } from "./modelo";
 
-// Estados posibles en la partida
+export const generarNumeroAleatorio = (): number =>
+  Math.floor(Math.random() * 12) + 1;
 
 // Funcióin que generar el número de la carta aleatoriamente.
 // Devuelve: Número de la carta
-export const generarNumeroCarta = (): number => {
-  let numeroAleatorio: number = Math.floor(Math.random() * 12) + 1;
-
+export const generarNumeroCarta = (numeroAleatorio: number): number => {
   if (numeroAleatorio === 8) {
     numeroAleatorio += 2;
   } else if (numeroAleatorio === 9) {
