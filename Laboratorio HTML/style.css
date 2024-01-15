@@ -18,9 +18,12 @@ header {
 .navbar ul {
   list-style: none;
   display: flex;
-  width: 80%;
   justify-content: space-around;
   align-items: center;
+}
+
+.navbar ul li {
+  padding: 16px;
 }
 
 .navbar {
