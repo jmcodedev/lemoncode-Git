@@ -1,14 +1,19 @@
-// Definir el costo total del ticket y el costo de las bebidas incluidas
-const costoTotal = 120;
-const costoBebidasIncluidas = 18;
+import "./style.css";
 
-// Número de amigos
-const numeroAmigos = 6;
+const peliculasOriginales: string[] = ["El caballero oscuro", "IT 2", "Matrix"];
 
-// Calcular el costo total sin las bebidas
-const costoCena = costoTotal - costoBebidasIncluidas;
+const insertarPelicula = <T>(
+  arrayEntrada: T[],
+  cabeza: boolean,
+  elemento: T
+): T[] => {
+  return cabeza ? [elemento, ...arrayEntrada] : [...arrayEntrada, elemento];
+};
 
-// Calcular el costo por persona
-const costoPorPersona = costoCena / numeroAmigos;
+const nuevasPeliculas = insertarPelicula(
+  peliculasOriginales,
+  false,
+  "Harry Potter"
+);
 
-console.log(`Cada comensal debe pagar ${costoPorPersona.toFixed(2)}€ para dividir los costos de manera equitativa.`);
+console.log(nuevasPeliculas);
