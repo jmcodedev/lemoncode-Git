@@ -38,10 +38,8 @@ const reservas = [
   },
 ];
 
-let totalCuenta = 0;
+const reservasFallidas = reservas.filter(
+  (reserva) => !reserva.completadaConExito
+);
 
-for (let i = 0; i < reservas.length; i++) {
-  totalCuenta += reservas[i].precio;
-}
-
-console.log(totalCuenta);
+console.log(reservasFallidas);
