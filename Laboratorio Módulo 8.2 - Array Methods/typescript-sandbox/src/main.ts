@@ -135,27 +135,19 @@ interface NumeroPacientesPorEspecialidad {
 const cuentaPacientesPorEspecialidad = (
   pacientes: Pacientes[]
 ): NumeroPacientesPorEspecialidad => {
-  const recuento: NumeroPacientesPorEspecialidad = {
-    medicoDeFamilia: 0,
-    pediatria: 0,
-    cardiologia: 0,
-  };
-
-  pacientes.forEach((paciente) => {
-    switch (paciente.especialidad) {
-      case "Medico de familia":
-        recuento.medicoDeFamilia++;
-        break;
-      case "Pediatra":
-        recuento.pediatria++;
-        break;
-      case "Cardiólogo":
-        recuento.cardiologia++;
-        break;
-      default:
-        break;
-    }
-  });
+  const recuento: NumeroPacientesPorEspecialidad = pacientes.reduce(
+    (acc, paciente) => {
+      if (paciente.especialidad === "Medico de familia") {
+        acc.medicoDeFamilia++;
+      } else if (paciente.especialidad === "Pediatra") {
+        acc.pediatria++;
+      } else if (paciente.especialidad === "Cardiólogo") {
+        acc.cardiologia++;
+      }
+      return acc;
+    },
+    { medicoDeFamilia: 0, pediatria: 0, cardiologia: 0 }
+  );
 
   return recuento;
 };
