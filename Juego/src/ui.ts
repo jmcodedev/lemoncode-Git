@@ -43,8 +43,7 @@ elementoDivCartas.forEach((gridItem, index) => {
       image instanceof HTMLImageElement &&
       comprobarCarta(tablero, index)
     ) {
-      // cambiarSrc(tablero, index, image);
-      image.src = tablero.cartas[index].imagen;
+      cambiarSrc(tablero, index, image);
     }
   });
 });

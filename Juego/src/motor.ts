@@ -14,8 +14,8 @@ const sePuedeVoltearLaCarta = (tablero: Tablero, indice: number): boolean => {
   if (
     !tablero.cartas[indice].encontrada &&
     !tablero.cartas[indice].estaVuelta &&
-    (tablero.indiceCartaVolteadaA === null ||
-      tablero.indiceCartaVolteadaB === null)
+    (tablero.indiceCartaVolteadaA === undefined ||
+      tablero.indiceCartaVolteadaB === undefined)
   ) {
     voltearCarta(tablero, indice);
     return true;
@@ -27,14 +27,14 @@ const sePuedeVoltearLaCarta = (tablero: Tablero, indice: number): boolean => {
 const voltearCarta = (tablero: Tablero, indice: number): void => {
   tablero.cartas[indice].estaVuelta = true;
   if (
-    tablero.indiceCartaVolteadaA === null &&
-    tablero.indiceCartaVolteadaB === null
+    tablero.indiceCartaVolteadaA === undefined &&
+    tablero.indiceCartaVolteadaB === undefined
   ) {
     tablero.indiceCartaVolteadaA = indice;
     tablero.estadoPartida = "UnaCartaLevantada";
   } else if (
-    tablero.indiceCartaVolteadaB === null &&
-    tablero.indiceCartaVolteadaA !== null
+    tablero.indiceCartaVolteadaB === undefined &&
+    tablero.indiceCartaVolteadaA !== undefined
   ) {
     tablero.indiceCartaVolteadaB = indice;
     tablero.estadoPartida = "DosCartasLevantadas";
@@ -45,14 +45,16 @@ export const sonPareja = (
   indiceA: number,
   indiceB: number,
   tablero: Tablero
-): void => {
+): boolean => {
   if (
     indiceA === indiceB &&
     tablero.indiceCartaVolteadaA === tablero.indiceCartaVolteadaB
   ) {
     parejaEncontrada(tablero, indiceA, indiceB);
+    return true;
   } else {
     parejaNoEncontrada(tablero, indiceA, indiceB);
+    return false;
   }
 };
 
