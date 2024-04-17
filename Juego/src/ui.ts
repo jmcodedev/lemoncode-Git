@@ -1,26 +1,34 @@
 // IMPORTS
 import "./style.css";
-import {
-  sonPareja,
-  comprobarCarta,
-  esPartidaCompleta,
-  iniciaPartida,
-} from "./motor";
-import { tablero, cartas, Tablero, Carta } from "./model";
+import { comprobarCarta, iniciaPartida, sonPareja } from "./motor";
+import { tablero, Tablero } from "./model";
 
-// DECLARACIÓN DE CONSTANTES
+// DECLARACIÓN DE VARIABLES
 
 const elementoIniciarPartida = document.getElementById("empezarPartida");
 const elementoDivCartas = document.querySelectorAll(".grid-item");
+let primeraCarta: number | null = null;
 
 // FUNCIONES
 
 const cambiarSrc = (
   tablero: Tablero,
   indice: number,
-  imgRecibida: HTMLImageElement
+  imgRecibida: HTMLImageElement,
+  voltear: boolean,
+  segundaCarta?: HTMLImageElement
 ): void => {
-  imgRecibida.src = tablero.cartas[indice].imagen;
+  if (voltear) {
+    imgRecibida.src = tablero.cartas[indice].imagen;
+    imgRecibida.style.display = "block";
+  } else {
+    setTimeout(() => {
+      imgRecibida.src = "";
+      if (segundaCarta) {
+        segundaCarta.src = "";
+      }
+    }, 1000);
+  }
 };
 
 // TRIGGERS
@@ -31,6 +39,12 @@ if (
 ) {
   elementoIniciarPartida.addEventListener("click", () => {
     iniciaPartida(tablero);
+    elementoDivCartas.forEach((cartaDiv) => {
+      if (cartaDiv && cartaDiv instanceof HTMLDivElement) {
+        cartaDiv.style.backgroundColor = "#aee2ff";
+        cartaDiv.style.pointerEvents = "auto";
+      }
+    });
   });
 }
 
@@ -43,7 +57,12 @@ elementoDivCartas.forEach((gridItem, index) => {
       image instanceof HTMLImageElement &&
       comprobarCarta(tablero, index)
     ) {
-      cambiarSrc(tablero, index, image);
+      primeraCarta = primeraCarta ? null : index;
+      cambiarSrc(tablero, index, image, true);
+
+      if (!primeraCarta) {
+        sonPareja(primeraCarta?, index, tablero)
+      }
     }
   });
 });

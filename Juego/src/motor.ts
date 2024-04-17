@@ -1,4 +1,5 @@
-import { Tablero, Carta, cartas, EstadoPartida } from "./model";
+import { Tablero, Carta, cartas } from "./model";
+import { primeraCarta } from "./ui";
 
 const barajarCartas = (cartas: Carta[]): Carta[] => {
   for (let i = cartas.length - 1; i > 0; i--) {
@@ -84,7 +85,6 @@ export const esPartidaCompleta = (tablero: Tablero): boolean =>
 export const iniciaPartida = (tablero: Tablero): void => {
   tablero.estadoPartida = "PartidaNoIniciada";
   tablero.cartas = barajarCartas(cartas);
-  console.log(tablero.cartas);
 };
 
 export const comprobarCarta = (tablero: Tablero, indice: number): boolean => {
