@@ -7,7 +7,6 @@ import { tablero, Tablero } from "./model";
 
 const elementoIniciarPartida = document.getElementById("empezarPartida");
 const elementoDivCartas = document.querySelectorAll(".grid-item");
-let primeraCarta: number | null = null;
 
 // FUNCIONES
 
@@ -57,11 +56,24 @@ elementoDivCartas.forEach((gridItem, index) => {
       image instanceof HTMLImageElement &&
       comprobarCarta(tablero, index)
     ) {
-      primeraCarta = primeraCarta ? null : index;
       cambiarSrc(tablero, index, image, true);
 
-      if (!primeraCarta) {
-        sonPareja(primeraCarta?, index, tablero)
+      if (
+        tablero.estadoPartida === "DosCartasLevantadas" &&
+        tablero.indiceCartaVolteadaA !== undefined &&
+        tablero.indiceCartaVolteadaB !== undefined
+      ) {
+        console.log(`Indice primera carta: ${tablero.indiceCartaVolteadaA}`);
+        console.log(`Indice primera carta: ${tablero.indiceCartaVolteadaB}`);
+        if (
+          !sonPareja(
+            tablero.indiceCartaVolteadaA,
+            tablero.indiceCartaVolteadaB,
+            tablero
+          )
+        ) {
+          cambiarSrc(tablero, index, image, false); // TODO: Cambiar la primera carta levantada de src
+        }
       }
     }
   });

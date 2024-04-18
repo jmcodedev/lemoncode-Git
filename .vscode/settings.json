@@ -1,0 +1,18 @@
+{
+  "workbench.startupEditor": "newUntitledFile",
+  "files.autoSave": "afterDelay",
+  "editor.fontLigatures": true,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.currentLine.enabled": false,
+  "editor.guides.bracketPairs": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.editor.languageDetection": true,
+  "editor.bracketPairColorization.enabled": true,
+  "oneDarkPro.italic": true,
+  "oneDarkPro.bold": true,
+  "oneDarkPro.vivid": true,
+  "workbench.sideBar.location": "right",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  }
+}

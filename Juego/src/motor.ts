@@ -1,5 +1,7 @@
 import { Tablero, Carta, cartas } from "./model";
-import { primeraCarta } from "./ui";
+
+// TODO : tablero.indiceCartaVolteadaX está guardando la posición del array de divs.
+// ! CORREGIR
 
 const barajarCartas = (cartas: Carta[]): Carta[] => {
   for (let i = cartas.length - 1; i > 0; i--) {
@@ -27,19 +29,15 @@ const sePuedeVoltearLaCarta = (tablero: Tablero, indice: number): boolean => {
 
 const voltearCarta = (tablero: Tablero, indice: number): void => {
   tablero.cartas[indice].estaVuelta = true;
-  if (
-    tablero.indiceCartaVolteadaA === undefined &&
-    tablero.indiceCartaVolteadaB === undefined
-  ) {
+  if (tablero.estadoPartida === "CeroCartasLevantadas") {
     tablero.indiceCartaVolteadaA = indice;
     tablero.estadoPartida = "UnaCartaLevantada";
-  } else if (
-    tablero.indiceCartaVolteadaB === undefined &&
-    tablero.indiceCartaVolteadaA !== undefined
-  ) {
+  } else if (tablero.estadoPartida === "UnaCartaLevantada") {
     tablero.indiceCartaVolteadaB = indice;
     tablero.estadoPartida = "DosCartasLevantadas";
   }
+  console.log(tablero.estadoPartida);
+  console.log(tablero.cartas);
 };
 
 export const sonPareja = (
@@ -47,10 +45,7 @@ export const sonPareja = (
   indiceB: number,
   tablero: Tablero
 ): boolean => {
-  if (
-    indiceA === indiceB &&
-    tablero.indiceCartaVolteadaA === tablero.indiceCartaVolteadaB
-  ) {
+  if (indiceA === indiceB) {
     parejaEncontrada(tablero, indiceA, indiceB);
     return true;
   } else {
@@ -67,6 +62,8 @@ const parejaEncontrada = (
   tablero.cartas[indiceA].encontrada = true;
   tablero.cartas[indiceB].encontrada = true;
   tablero.estadoPartida = "CeroCartasLevantadas";
+  tablero.indiceCartaVolteadaA = undefined;
+  tablero.indiceCartaVolteadaB = undefined;
 };
 
 const parejaNoEncontrada = (
@@ -77,13 +74,15 @@ const parejaNoEncontrada = (
   tablero.estadoPartida = "CeroCartasLevantadas";
   tablero.cartas[indiceA].estaVuelta = false;
   tablero.cartas[indiceB].estaVuelta = false;
+  tablero.indiceCartaVolteadaA = undefined;
+  tablero.indiceCartaVolteadaB = undefined;
 };
 
 export const esPartidaCompleta = (tablero: Tablero): boolean =>
   tablero.cartas.every((cartas) => cartas.encontrada);
 
 export const iniciaPartida = (tablero: Tablero): void => {
-  tablero.estadoPartida = "PartidaNoIniciada";
+  tablero.estadoPartida = "CeroCartasLevantadas";
   tablero.cartas = barajarCartas(cartas);
 };
 
