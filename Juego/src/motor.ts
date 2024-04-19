@@ -17,8 +17,8 @@ const sePuedeVoltearLaCarta = (tablero: Tablero, indice: number): boolean => {
   if (
     !tablero.cartas[indice].encontrada &&
     !tablero.cartas[indice].estaVuelta &&
-    (tablero.indiceCartaVolteadaA === undefined ||
-      tablero.indiceCartaVolteadaB === undefined)
+    (tablero.estadoPartida === "CeroCartasLevantadas" ||
+      tablero.estadoPartida === "UnaCartaLevantada")
   ) {
     voltearCarta(tablero, indice);
     return true;
@@ -36,8 +36,6 @@ const voltearCarta = (tablero: Tablero, indice: number): void => {
     tablero.indiceCartaVolteadaB = indice;
     tablero.estadoPartida = "DosCartasLevantadas";
   }
-  console.log(tablero.estadoPartida);
-  console.log(tablero.cartas);
 };
 
 export const sonPareja = (
@@ -72,6 +70,7 @@ const parejaNoEncontrada = (
   indiceB: number
 ): void => {
   tablero.estadoPartida = "CeroCartasLevantadas";
+  console.log(tablero.estadoPartida);
   tablero.cartas[indiceA].estaVuelta = false;
   tablero.cartas[indiceB].estaVuelta = false;
   tablero.indiceCartaVolteadaA = undefined;

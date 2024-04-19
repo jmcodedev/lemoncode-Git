@@ -13,21 +13,18 @@ const elementoDivCartas = document.querySelectorAll(".grid-item");
 const cambiarSrc = (
   tablero: Tablero,
   indice: number,
-  imgRecibida: HTMLImageElement,
-  voltear: boolean,
-  segundaCarta?: HTMLImageElement
+  carta: HTMLImageElement
 ): void => {
-  if (voltear) {
-    imgRecibida.src = tablero.cartas[indice].imagen;
-    imgRecibida.style.display = "block";
-  } else {
-    setTimeout(() => {
-      imgRecibida.src = "";
-      if (segundaCarta) {
-        segundaCarta.src = "";
-      }
-    }, 1000);
-  }
+  carta.src = tablero.cartas[indice].imagen;
+  carta.style.display = "block";
+};
+
+const girarAbajo = (
+  carta1: HTMLImageElement,
+  carta2: HTMLImageElement
+): void => {
+  carta1.src = "";
+  carta2.src = "";
 };
 
 // TRIGGERS
@@ -47,6 +44,8 @@ if (
   });
 }
 
+let elementoPrimeraCarta: HTMLImageElement | null = null;
+
 elementoDivCartas.forEach((gridItem, index) => {
   gridItem.addEventListener("click", () => {
     const image = gridItem.querySelector("img");
@@ -56,23 +55,23 @@ elementoDivCartas.forEach((gridItem, index) => {
       image instanceof HTMLImageElement &&
       comprobarCarta(tablero, index)
     ) {
-      cambiarSrc(tablero, index, image, true);
-
+      cambiarSrc(tablero, index, image);
+      console.log(elementoPrimeraCarta);
+      console.log(image);
       if (
         tablero.estadoPartida === "DosCartasLevantadas" &&
-        tablero.indiceCartaVolteadaA !== undefined &&
-        tablero.indiceCartaVolteadaB !== undefined
+        tablero.indiceCartaVolteadaA &&
+        tablero.indiceCartaVolteadaB
       ) {
-        console.log(`Indice primera carta: ${tablero.indiceCartaVolteadaA}`);
-        console.log(`Indice primera carta: ${tablero.indiceCartaVolteadaB}`);
         if (
           !sonPareja(
-            tablero.indiceCartaVolteadaA,
-            tablero.indiceCartaVolteadaB,
+            tablero.cartas[tablero.indiceCartaVolteadaA].idFoto,
+            tablero.cartas[tablero.indiceCartaVolteadaB].idFoto,
             tablero
-          )
+          ) &&
+          elementoPrimeraCarta
         ) {
-          cambiarSrc(tablero, index, image, false); // TODO: Cambiar la primera carta levantada de src
+          girarAbajo(elementoPrimeraCarta, image);
         }
       }
     }
