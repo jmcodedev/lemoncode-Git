@@ -1,8 +1,5 @@
 import { Tablero, Carta, cartas } from "./model";
 
-// TODO : tablero.indiceCartaVolteadaX está guardando la posición del array de divs.
-// ! CORREGIR
-
 const barajarCartas = (cartas: Carta[]): Carta[] => {
   for (let i = cartas.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -23,6 +20,7 @@ const sePuedeVoltearLaCarta = (tablero: Tablero, indice: number): boolean => {
     voltearCarta(tablero, indice);
     return true;
   } else {
+    tablero.estadoPartida = "CeroCartasLevantadas";
     return false;
   }
 };
@@ -44,37 +42,41 @@ export const sonPareja = (
   tablero: Tablero
 ): boolean => {
   if (indiceA === indiceB) {
-    parejaEncontrada(tablero, indiceA, indiceB);
+    parejaEncontrada(tablero);
     return true;
   } else {
-    parejaNoEncontrada(tablero, indiceA, indiceB);
+    parejaNoEncontrada(tablero);
     return false;
   }
 };
 
-const parejaEncontrada = (
-  tablero: Tablero,
-  indiceA: number,
-  indiceB: number
-): void => {
-  tablero.cartas[indiceA].encontrada = true;
-  tablero.cartas[indiceB].encontrada = true;
-  tablero.estadoPartida = "CeroCartasLevantadas";
+const resetearCartas = (tablero: Tablero): void => {
+  tablero.cartas.forEach((carta) => {
+    if (!carta.encontrada) {
+      carta.estaVuelta = false;
+    }
+  });
   tablero.indiceCartaVolteadaA = undefined;
   tablero.indiceCartaVolteadaB = undefined;
 };
 
-const parejaNoEncontrada = (
-  tablero: Tablero,
-  indiceA: number,
-  indiceB: number
-): void => {
-  tablero.estadoPartida = "CeroCartasLevantadas";
-  console.log(tablero.estadoPartida);
-  tablero.cartas[indiceA].estaVuelta = false;
-  tablero.cartas[indiceB].estaVuelta = false;
-  tablero.indiceCartaVolteadaA = undefined;
-  tablero.indiceCartaVolteadaB = undefined;
+const parejaEncontrada = (tablero: Tablero): void => {
+  if (tablero.indiceCartaVolteadaA && tablero.indiceCartaVolteadaB) {
+    console.log("Son pareja");
+    tablero.cartas[tablero.indiceCartaVolteadaA].encontrada = true;
+    tablero.cartas[tablero.indiceCartaVolteadaB].encontrada = true;
+    tablero.cartas[tablero.indiceCartaVolteadaA].estaVuelta = true;
+    tablero.cartas[tablero.indiceCartaVolteadaB].estaVuelta = true;
+    tablero.estadoPartida = "CeroCartasLevantadas";
+  }
+};
+
+const parejaNoEncontrada = (tablero: Tablero): void => {
+  if (tablero.indiceCartaVolteadaA && tablero.indiceCartaVolteadaB) {
+    console.log("No son pareja");
+    tablero.estadoPartida = "CeroCartasLevantadas";
+    resetearCartas(tablero);
+  }
 };
 
 export const esPartidaCompleta = (tablero: Tablero): boolean =>

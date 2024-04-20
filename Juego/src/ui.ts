@@ -1,30 +1,42 @@
 // IMPORTS
 import "./style.css";
-import { comprobarCarta, iniciaPartida, sonPareja } from "./motor";
+import {
+  comprobarCarta,
+  esPartidaCompleta,
+  iniciaPartida,
+  sonPareja,
+} from "./motor";
 import { tablero, Tablero } from "./model";
 
 // DECLARACIÓN DE VARIABLES
 
 const elementoIniciarPartida = document.getElementById("empezarPartida");
 const elementoDivCartas = document.querySelectorAll(".grid-item");
+let primeraCarta: HTMLDivElement | null = null;
+let segundaCarta: HTMLDivElement | null = null;
 
 // FUNCIONES
 
-const cambiarSrc = (
+const voltearCarta = (
+  carta: HTMLDivElement,
   tablero: Tablero,
-  indice: number,
-  carta: HTMLImageElement
+  indice: number
 ): void => {
-  carta.src = tablero.cartas[indice].imagen;
-  carta.style.display = "block";
+  const img = carta.querySelector("img");
+  if (img) {
+    img.src = tablero.cartas[indice].imagen;
+  }
 };
 
-const girarAbajo = (
-  carta1: HTMLImageElement,
-  carta2: HTMLImageElement
-): void => {
-  carta1.src = "";
-  carta2.src = "";
+const bajarCartas = (carta1: HTMLDivElement, carta2: HTMLDivElement) => {
+  const img1 = carta1.querySelector("img");
+  const img2 = carta2.querySelector("img");
+  setTimeout(() => {
+    if (img1 && img2) {
+      img1.src = "";
+      img2.src = "";
+    }
+  }, 1000);
 };
 
 // TRIGGERS
@@ -44,36 +56,42 @@ if (
   });
 }
 
-let elementoPrimeraCarta: HTMLImageElement | null = null;
+elementoDivCartas.forEach((carta, indice) => {
+  carta.addEventListener("click", () => {
+    if (comprobarCarta(tablero, indice)) {
+      if (!primeraCarta) {
+        primeraCarta = carta as HTMLDivElement;
+        voltearCarta(primeraCarta, tablero, indice);
+      } else if (!segundaCarta) {
+        segundaCarta = carta as HTMLDivElement;
+        voltearCarta(segundaCarta, tablero, indice);
 
-elementoDivCartas.forEach((gridItem, index) => {
-  gridItem.addEventListener("click", () => {
-    const image = gridItem.querySelector("img");
-
-    if (
-      image &&
-      image instanceof HTMLImageElement &&
-      comprobarCarta(tablero, index)
-    ) {
-      cambiarSrc(tablero, index, image);
-      console.log(elementoPrimeraCarta);
-      console.log(image);
-      if (
-        tablero.estadoPartida === "DosCartasLevantadas" &&
-        tablero.indiceCartaVolteadaA &&
-        tablero.indiceCartaVolteadaB
-      ) {
         if (
-          !sonPareja(
-            tablero.cartas[tablero.indiceCartaVolteadaA].idFoto,
-            tablero.cartas[tablero.indiceCartaVolteadaB].idFoto,
-            tablero
-          ) &&
-          elementoPrimeraCarta
+          tablero.indiceCartaVolteadaA !== undefined &&
+          tablero.indiceCartaVolteadaB !== undefined
         ) {
-          girarAbajo(elementoPrimeraCarta, image);
+          if (
+            sonPareja(
+              tablero.cartas[tablero.indiceCartaVolteadaA].idFoto,
+              tablero.cartas[tablero.indiceCartaVolteadaB].idFoto,
+              tablero
+            )
+          ) {
+            if (esPartidaCompleta(tablero)) {
+              console.log("PARTIDA FINALIZADA");
+              tablero.estadoPartida = "PartidaCompleta";
+            }
+          } else if (primeraCarta && segundaCarta) {
+            bajarCartas(primeraCarta, segundaCarta);
+          }
         }
+
+        primeraCarta = null;
+        segundaCarta = null;
       }
+    } else {
+      console.log(tablero);
+      console.log("No se puede levantar");
     }
   });
 });

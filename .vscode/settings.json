@@ -14,5 +14,6 @@
   "workbench.sideBar.location": "right",
   "editor.codeActionsOnSave": {
     "source.fixAll": "always"
-  }
+  },
+  "cmake.configureOnOpen": true
 }
