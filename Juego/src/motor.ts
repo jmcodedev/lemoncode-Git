@@ -12,27 +12,25 @@ const barajarCartas = (cartas: Carta[]): Carta[] => {
 
 const sePuedeVoltearLaCarta = (tablero: Tablero, indice: number): boolean => {
   if (
-    !tablero.cartas[indice].encontrada &&
     !tablero.cartas[indice].estaVuelta &&
-    (tablero.estadoPartida === "CeroCartasLevantadas" ||
-      tablero.estadoPartida === "UnaCartaLevantada")
+    !tablero.cartas[indice].encontrada
   ) {
     voltearCarta(tablero, indice);
     return true;
   } else {
-    tablero.estadoPartida = "CeroCartasLevantadas";
     return false;
   }
 };
 
 const voltearCarta = (tablero: Tablero, indice: number): void => {
   tablero.cartas[indice].estaVuelta = true;
+
   if (tablero.estadoPartida === "CeroCartasLevantadas") {
-    tablero.indiceCartaVolteadaA = indice;
     tablero.estadoPartida = "UnaCartaLevantada";
+    tablero.indiceCartaVolteadaA = indice;
   } else if (tablero.estadoPartida === "UnaCartaLevantada") {
-    tablero.indiceCartaVolteadaB = indice;
     tablero.estadoPartida = "DosCartasLevantadas";
+    tablero.indiceCartaVolteadaB = indice;
   }
 };
 
@@ -41,45 +39,45 @@ export const sonPareja = (
   indiceB: number,
   tablero: Tablero
 ): boolean => {
-  if (indiceA === indiceB) {
-    parejaEncontrada(tablero);
+  if (tablero.cartas[indiceA].idFoto === tablero.cartas[indiceB].idFoto) {
+    parejaEncontrada(tablero, indiceA, indiceB);
     return true;
   } else {
-    parejaNoEncontrada(tablero);
+    parejaNoEncontrada(tablero, indiceA, indiceB);
     return false;
   }
 };
 
-const resetearCartas = (tablero: Tablero): void => {
-  tablero.cartas.forEach((carta) => {
-    if (!carta.encontrada) {
-      carta.estaVuelta = false;
-    }
-  });
+const parejaEncontrada = (
+  tablero: Tablero,
+  indiceA: number,
+  indiceB: number
+): void => {
+  tablero.cartas[indiceA].encontrada = true;
+  tablero.cartas[indiceB].encontrada = true;
+  tablero.estadoPartida = "CeroCartasLevantadas";
   tablero.indiceCartaVolteadaA = undefined;
   tablero.indiceCartaVolteadaB = undefined;
-};
-
-const parejaEncontrada = (tablero: Tablero): void => {
-  if (tablero.indiceCartaVolteadaA && tablero.indiceCartaVolteadaB) {
-    console.log("Son pareja");
-    tablero.cartas[tablero.indiceCartaVolteadaA].encontrada = true;
-    tablero.cartas[tablero.indiceCartaVolteadaB].encontrada = true;
-    tablero.cartas[tablero.indiceCartaVolteadaA].estaVuelta = true;
-    tablero.cartas[tablero.indiceCartaVolteadaB].estaVuelta = true;
-    tablero.estadoPartida = "CeroCartasLevantadas";
+  if (esPartidaCompleta(tablero)) {
+    alert("Has ganado!!!");
+    tablero.estadoPartida = "PartidaCompleta";
   }
 };
 
-const parejaNoEncontrada = (tablero: Tablero): void => {
-  if (tablero.indiceCartaVolteadaA && tablero.indiceCartaVolteadaB) {
-    console.log("No son pareja");
-    tablero.estadoPartida = "CeroCartasLevantadas";
-    resetearCartas(tablero);
-  }
+const parejaNoEncontrada = (
+  tablero: Tablero,
+  indiceA: number,
+  indiceB: number
+): void => {
+  tablero.cartas[indiceA].estaVuelta = false;
+  tablero.cartas[indiceB].estaVuelta = false;
+  tablero.indiceCartaVolteadaA = undefined;
+  tablero.indiceCartaVolteadaB = undefined;
+
+  tablero.estadoPartida = "CeroCartasLevantadas";
 };
 
-export const esPartidaCompleta = (tablero: Tablero): boolean =>
+const esPartidaCompleta = (tablero: Tablero): boolean =>
   tablero.cartas.every((cartas) => cartas.encontrada);
 
 export const iniciaPartida = (tablero: Tablero): void => {

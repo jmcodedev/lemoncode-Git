@@ -1,19 +1,17 @@
 // IMPORTS
 import "./style.css";
-import {
-  comprobarCarta,
-  esPartidaCompleta,
-  iniciaPartida,
-  sonPareja,
-} from "./motor";
+import { comprobarCarta, iniciaPartida, sonPareja } from "./motor";
 import { tablero, Tablero } from "./model";
 
 // DECLARACIÓN DE VARIABLES
 
 const elementoIniciarPartida = document.getElementById("empezarPartida");
 const elementoDivCartas = document.querySelectorAll(".grid-item");
+const mensaje = document.getElementById("mensaje");
 let primeraCarta: HTMLDivElement | null = null;
 let segundaCarta: HTMLDivElement | null = null;
+
+let contador: number = 0;
 
 // FUNCIONES
 
@@ -46,11 +44,27 @@ if (
   elementoIniciarPartida instanceof HTMLButtonElement
 ) {
   elementoIniciarPartida.addEventListener("click", () => {
+    tablero.cartas.forEach((carta) => {
+      carta.estaVuelta = false;
+      carta.encontrada = false;
+    });
+    contador = 0;
     iniciaPartida(tablero);
     elementoDivCartas.forEach((cartaDiv) => {
-      if (cartaDiv && cartaDiv instanceof HTMLDivElement) {
-        cartaDiv.style.backgroundColor = "#aee2ff";
+      if (
+        cartaDiv &&
+        cartaDiv instanceof HTMLDivElement &&
+        mensaje &&
+        mensaje instanceof HTMLParagraphElement
+      ) {
+        const imagenes = cartaDiv.querySelector("img");
+        if (imagenes instanceof HTMLImageElement && imagenes) {
+          imagenes.src = "";
+        }
         cartaDiv.style.pointerEvents = "auto";
+        cartaDiv.classList.add("activada");
+        mensaje.textContent = "Se ha iniciado la partida";
+        elementoIniciarPartida.textContent = "REINICIAR PARTIDA";
       }
     });
   });
@@ -72,17 +86,14 @@ elementoDivCartas.forEach((carta, indice) => {
         ) {
           if (
             sonPareja(
-              tablero.cartas[tablero.indiceCartaVolteadaA].idFoto,
-              tablero.cartas[tablero.indiceCartaVolteadaB].idFoto,
+              tablero.indiceCartaVolteadaA,
+              tablero.indiceCartaVolteadaB,
               tablero
             )
           ) {
-            if (esPartidaCompleta(tablero)) {
-              console.log("PARTIDA FINALIZADA");
-              tablero.estadoPartida = "PartidaCompleta";
-            }
           } else if (primeraCarta && segundaCarta) {
             bajarCartas(primeraCarta, segundaCarta);
+            contador++;
           }
         }
 
@@ -92,6 +103,14 @@ elementoDivCartas.forEach((carta, indice) => {
     } else {
       console.log(tablero);
       console.log("No se puede levantar");
+    }
+
+    if (
+      mensaje instanceof HTMLParagraphElement &&
+      mensaje &&
+      tablero.estadoPartida !== "PartidaCompleta"
+    ) {
+      mensaje.textContent = `Número de intentos ${contador}`;
     }
   });
 });

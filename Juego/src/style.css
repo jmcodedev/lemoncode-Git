@@ -15,14 +15,14 @@
   max-width: 500px;
 }
 
-.grid-item {
+.grid-container .grid-item {
   cursor: pointer;
   pointer-events: none;
   border-radius: 10px;
   border-color: none;
   width: 90px;
   height: 90px;
-  background-color: lightgray;
+  background-color: #aee2ff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,11 +30,20 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  transition-duration: 0.2s;
 }
 
-img {
+.grid-container .grid-item img {
   width: 75%;
-  height: 75%;
+}
+
+.grid-container .grid-item.activada:hover {
+  background-color: lightgreen;
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
 }
 
 #empezarPartida {
@@ -61,4 +70,14 @@ img {
   display: flex;
   margin: 0 auto;
   width: 500px;
+}
+
+.mensaje-div {
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  width: 500px;
+  color: black;
+  font-family: "Space Grotesk", sans-serif;
+  padding-bottom: 50px;
 }
