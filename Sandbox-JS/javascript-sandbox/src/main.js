@@ -3,38 +3,52 @@ import Axios from "axios";
 const __MOVIE_ENDPOINT__ = "http://localhost:3000/movies";
 const __ACTORS_ENDPOINT__ = "http://localhost:3000/actors";
 
-const nuevoActor = {
+const actorActualizado = {
+  id: "28",
   name: "Tom Holland",
   movies: [
-    "Spiderman: Homecoming",
-    "Spiderman: Far from home",
-    "Spiderman: No way home",
+    "Captain America: Civil War",
+    "Spider-Man: Homecoming",
     "Avengers: Infinity War",
     "Avengers: Endgame",
-    "Captain America: Civil War",
+    "Spider-Man: Far From Home",
   ],
-  bio: "Tom Holland is an English actor. He is best known for his role as Spider-Man in the Marvel Cinematic Universe (MCU) films. Holland has also appeared in the disaster film The Impossible (2012), the fantasy drama A Monster Calls (2016), and the war film The Lost City of Z (2016).",
-  image: "https://example.com/tom-holland.jpg",
+  bio: "Thomas Stanley Holland is an English actor. A graduate of the BRIT School in London, he began his acting career on stage in the title role of Billy Elliot the Musical in the West End from 2008 to 2010. ACTUALIZADO 2222",
+  image: "https://example.com/tom-holland2.jpg ",
 };
 
-const agregarActor = async () => {
-  const response = await fetch(__ACTORS_ENDPOINT__, {
-    method: "POST",
+const actualizarActor = (actor) => {
+  // try {
+  //   const response = await Axios.put(
+  //     `${__ACTORS_ENDPOINT__}/${actor.id}`,
+  //     actor
+  //   );
+  //   console.log(response.data);
+  // } catch (error) {
+  //   console.error(error);
+
+  //   Axios.put(`${__ACTORS_ENDPOINT__}/${actor.id}`, actor)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+
+  fetch(`${__ACTORS_ENDPOINT__}/${actor.id}`, {
+    method: "PUT",
+    body: JSON.stringify(actor),
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(nuevoActor),
-  });
-
-  if (response.ok) {
-    const actor = await response.json();
-    console.log(actor);
-  } else {
-    throw new Error("Error en la llamada a la API");
-  }
+  })
+    .then((response) => {
+      if (response.ok) {
+        response.json();
+      } else throw new Error("Error en al conexión con la API");
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.log(`Se produjo el error:${error}}`));
 };
-try {
-  agregarActor(nuevoActor);
-} catch (error) {
-  console.log("Error: ", error);
-}
+
+actualizarActor(actorActualizado);
