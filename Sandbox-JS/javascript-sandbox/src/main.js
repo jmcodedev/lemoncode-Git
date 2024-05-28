@@ -1,7 +1,7 @@
 import "./style.css";
 import Axios from "axios";
 const __MOVIE_ENDPOINT__ = "http://localhost:3000/movies";
-const __ACTORS_ENDPOINT__ = "http://localhost:3000/actors";
+const __ACTORS_ENDPOINT__ = "http://localhost:3000/lknrtknhlnkrth";
 
 const actorActualizado = {
   id: "28",
@@ -44,11 +44,16 @@ const actualizarActor = (actor) => {
   })
     .then((response) => {
       if (response.ok) {
-        response.json();
-      } else throw new Error("Error en al conexión con la API");
+        return response.json();
+      } else {
+        throw new Error("Error en al conexión con la API");
+      }
     })
     .then((data) => console.log(data))
     .catch((error) => console.log(`Se produjo el error:${error}}`));
 };
-
-actualizarActor(actorActualizado);
+try {
+  actualizarActor(actorActualizado);
+} catch (error) {
+  console.log(error);
+}
