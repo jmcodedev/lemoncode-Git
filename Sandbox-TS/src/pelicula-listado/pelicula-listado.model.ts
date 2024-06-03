@@ -1,17 +1,15 @@
 export interface Movie {
-  id: string;
+  id: number;
   title: string;
   year: number;
   director: string;
   description: string;
-  actors: string[];
   cover_url: string;
 }
 
-export interface Actor {
+export interface CrearBotonParams {
+  texto: string;
   id: string;
-  name: string;
-  movies: string[];
-  bio: string;
-  image: string;
+  nombreClase: string;
+  onClick: (id: string) => void;
 }
