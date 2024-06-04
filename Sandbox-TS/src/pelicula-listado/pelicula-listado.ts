@@ -1,13 +1,21 @@
 import { CrearBotonParams, Movie } from "./pelicula-listado.model";
-import { obtenerPeliculas } from "./pelicula-listado.api";
+import { obtenerPeliculas, borrarPelicula } from "./pelicula-listado.api";
 const editaPelicula = (id: string): void => {
   window.location.href = `../pelicula-editar/index.html?id=${encodeURIComponent(
     id
   )}`;
 };
 
-const borraPelicula = (id: string): void => {
-  console.log("Borrando película con id", id);
+const borraPelicula = async (id: string) => {
+  await borrarPelicula(id);
+  const listado = document.getElementById("listado-peliculas");
+  if (listado && listado instanceof HTMLDivElement) {
+    listado.innerHTML = "";
+    renderizaPeliculas();
+    alert("Película borrada correctamente");
+  } else {
+    throw new Error("No se ha encontrado el elemento listado-peliculas");
+  }
 };
 
 const crearElementoImagen = (

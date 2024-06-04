@@ -11,3 +11,11 @@ export const obtenerPeliculas = async (): Promise<Movie[]> => {
     throw new Error("Error al obtener las películas");
   }
 };
+
+export const borrarPelicula = async (id: string): Promise<void> => {
+  try {
+    await axios.delete(`${MOVIE_ENDPOINT}/${id}`);
+  } catch (error) {
+    throw new Error("Error al borrar la película");
+  }
+};
