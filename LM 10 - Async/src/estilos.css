@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+:root {
+  --bg-color: rgb(229, 234, 238);
+  --color-primary: #00ad74;
+  --color-secondary: #008c86;
+  --font-family: Roboto, "Arial", "Helvetica", sans-serif;
+}
+body {
+  height: 100vh;
+  font-family: var(--font-family);
+  line-height: 1;
+  background-color: var(--bg-color);
+  overflow: hidden;
+}
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: var(--color-secondary);
+}
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  gap: 20px;
+  height: 100vh;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 100vh;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.listado-personajes {
+  width: 85%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 25px;
+  justify-items: center;
+}
+.personajes-contenedor {
+  display: flex;
+  flex-flow: column wrap;
+  background-color: #fff;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  row-gap: 20px;
+  width: 500px;
+  padding: 25px;
+  .personajes-contenedor {
+    display: flex;
+    flex-flow: column wrap;
+    background-color: #fff;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    row-gap: 20px;
+    width: 500px;
+    padding: 25px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  }
+}
+.personajes-contenedor > img {
+  margin-bottom: 50px;
+  max-width: 150px;
+  align-self: center;
+  flex-grow: 1;
+}
+
+.contenedor-h1 {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  top: 0;
+  width: 100%;
+  background-color: var(--bg-color);
+  z-index: 1;
+}
+.cabecera-h1 {
+  background-color: var(--bg-color);
+  padding: 16px;
+  text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .personaje-contenedor {
+    grid-template-columns: auto;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .personaje-contenedor img {
+    max-width: 300px;
+  }
+
+  .personaje-contenedor p {
+    text-align: center;
+  }
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 800px;
+}
+
+.contenedor-formulario {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+textarea {
+  font-family: var(--font-family);
+}
+
+#personaje-inp {
+  cursor: text;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  padding: 8px;
+}
+
+button[type="submit"] {
+  width: 120px;
+  padding: 8px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 100%;
+  }
+}
