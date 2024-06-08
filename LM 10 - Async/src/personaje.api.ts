@@ -10,7 +10,7 @@ export const getPersonajes = async (): Promise<Personaje[]> => {
 
 export const getPersonajePorNombre = async (
   nombre: string
-): Promise<Personaje> => {
+): Promise<Personaje[]> => {
   const response = await axios.get(`${URL}?nombre_like=${nombre}`);
   return response.data;
 };

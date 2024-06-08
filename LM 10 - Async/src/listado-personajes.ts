@@ -60,20 +60,20 @@ const mostrarPersonajes = async () => {
 
 const buscarPersonaje = async () => {
   const input = document.querySelector("#personaje-inp");
-
   if (input && input instanceof HTMLInputElement) {
-    const personaje = await getPersonajePorNombre(input.value);
+    const personajes = await getPersonajePorNombre(input.value);
     const listado = document.querySelector("#listado-personajes");
 
     if (listado && listado instanceof HTMLDivElement) {
-      listado.innerHTML = "";
-      listado.appendChild(crearContenedorPeronsaje(personaje));
+      personajes.forEach((personaje) => {
+        listado.innerHTML = "";
+        listado.appendChild(crearContenedorPeronsaje(personaje));
+      });
     } else {
       throw new Error("No se ha encontrado el listado de personajes");
     }
   }
 };
-
 document.addEventListener("DOMContentLoaded", mostrarPersonajes);
 const formulario = document.querySelector("form");
 
