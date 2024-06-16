@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <title>Extractor de img</title>
+  </head>
+  <body>
+    <main class="main">
+      <h1 style="display: flex; justify-content: center; margin-top: 30px">
+        Extractor de img
+      </h1>
+      <form id="form" style="margin: 50px">
+        <label for="html-code">Pegue el HTML</label>
+        <textarea
+          name="html"
+          id="html-code"
+          placeholder="Código HTML"
+          aria-label="Código HTML para extraer img"
+          rows="5"
+        ></textarea>
+        <button type="submit" style="width: 100%">Extraer Imágenes</button>
+      </form>
+      <pre
+        class="contenedor-resultados"
+        style="margin: 50px; padding: 25px"
+      ></pre>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
