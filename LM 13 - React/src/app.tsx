@@ -1,7 +1,6 @@
 import React from "react";
 
 import "./style.css";
+import { Router } from "@/core/router";
 
-export const App: React.FC = () => {
-  return <h1>Punto de partida app Banca</h1>;
-};
+export const App: React.FC = () => <Router />;
