@@ -1,5 +1,10 @@
+import { AppLayout } from "@/layouts";
 import React from "react";
 
 export const MovementListPage: React.FC = () => {
-  return <div>Movement List</div>;
+  return (
+    <AppLayout>
+      <div>Movement List</div>
+    </AppLayout>
+  );
 };

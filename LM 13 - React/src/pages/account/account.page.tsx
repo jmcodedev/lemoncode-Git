@@ -1,5 +1,10 @@
+import { AppLayout } from "@/layouts";
 import React from "react";
 
 export const AccountPage: React.FC = () => {
-  return <div>Account Page</div>;
+  return (
+    <AppLayout>
+      <div>Account Page</div>
+    </AppLayout>
+  );
 };
