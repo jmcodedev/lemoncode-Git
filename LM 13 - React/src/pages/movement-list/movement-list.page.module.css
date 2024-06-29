@@ -1,0 +1,47 @@
+.root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5ppx;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-header);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.header-container h1 {
+  font-size: 2.2rem;
+  font-weight: 300;
+}
+
+.balanceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.balanceContainer h4 {
+  font-size: 14px;
+  color: var(--secondary_color);
+  font-weight: bold;
+}
+
+.balanceContainer h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--primary_color);
+}
+
+.account-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: var(--secondary_color);
+  font-size: 17px;
+  font-weight: 600;
+}

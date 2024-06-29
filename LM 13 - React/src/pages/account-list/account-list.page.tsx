@@ -1,23 +1,27 @@
-import { appRoutes } from "@/core/router";
 import { AppLayout } from "@/layouts";
 import React from "react";
-import { generatePath, Link } from "react-router-dom";
+import { AccountVm } from "./account-list.vm";
+import classes from "./account-list.page.module.css";
+import { AccountListTableComponent } from "./components";
+import { getAccountList } from "./api";
+import { mapAccountListFormApiToVm } from "./account-list.mapper";
 
 export const AccountListPage: React.FC = () => {
+  const [accountList, setAccountList] = React.useState<AccountVm[]>([]);
+
+  React.useEffect(() => {
+    getAccountList().then((result) =>
+      setAccountList(mapAccountListFormApiToVm(result))
+    );
+  }, []);
   return (
     <AppLayout>
-      <div>
-        Account list
-        <br />
-        <Link to={generatePath(appRoutes.movements, { id: 1 })}>
-          Movimientos de la cuenta 1
-        </Link>
-        <br />
-        <Link to={appRoutes.transfer}>Transferencia</Link>
-        <br />
-        <Link to={generatePath(appRoutes.transfer, { id: 1 })}>
-          Transferencia desde cuenta 1
-        </Link>
+      <div className={classes.root}>
+        <div className={classes.headerContainer}>
+          <h1>Mis Cuentas</h1>
+          <button>AGREGAR NUEVA CUENTA</button>
+        </div>
+        <AccountListTableComponent accountList={accountList} />
       </div>
     </AppLayout>
   );
