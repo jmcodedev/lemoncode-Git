@@ -1,0 +1,7 @@
+import validator from "validator";
+
+export const isValidIban = (iban: string): boolean => validator.isIBAN(iban);
+
+export const isPositiveNumber = (amount: number): boolean => amount > 0;
+
+export const isDateAfterToday = (date: Date): boolean => !isNaN(date.getTime());

@@ -4,16 +4,16 @@ import classes from "./movement-list.page.module.css";
 import { MovementListTableComponent } from "./components/movement-list-table.component";
 import { AccountVm, MovementVm } from "./movement-list.vm";
 import {
-  mapMovementAcountFromApiToVm,
+  // mapAccountDetailListFormApiToVm,
   mapMovementListFromApiToVm,
 } from "./movement-list.mapper";
 import { useParams } from "react-router-dom";
-import { getAccountDetails, getMovements } from "./api";
+import { getMovements, getAccountDetails } from "./api";
 
 export const MovementListPage: React.FC = () => {
   const [movementList, setMovementList] = React.useState<MovementVm[]>([]);
-  const [accountMovement, setAccountMovement] = React.useState<AccountVm>();
   const { id } = useParams() as { id: string };
+  const [accountDetails, setAccountDetails] = React.useState<AccountVm>();
 
   React.useEffect(() => {
     getMovements(id).then((result) =>
@@ -22,10 +22,9 @@ export const MovementListPage: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    getAccountDetails(id).then((result) =>
-      setAccountMovement(mapMovementAcountFromApiToVm(result))
-    );
+    getAccountDetails().then((result) => setAccountDetails(result));
   }, []);
+
   return (
     <AppLayout>
       <div className={classes.root}>
@@ -33,13 +32,13 @@ export const MovementListPage: React.FC = () => {
           <h1>Saldos y Últimos movimientos</h1>
           <span className={classes.balanceContainer}>
             <h4>SALDO DISPONIBLE</h4>
-            <h2>{accountMovement?.balance} €</h2>
+            <h2>{accountDetails?.balance} €</h2>
           </span>
         </div>
         <div className={classes.accountDetail}>
-          <span>Alias: {accountMovement?.name}</span>
+          <span>Alias: {accountDetails?.name}</span>
 
-          <span>IBAN: {accountMovement?.iban}</span>
+          <span>IBAN: {accountDetails?.iban}</span>
         </div>
         <MovementListTableComponent movementList={movementList} />
       </div>
