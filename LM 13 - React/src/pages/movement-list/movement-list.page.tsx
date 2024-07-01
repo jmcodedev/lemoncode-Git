@@ -4,7 +4,7 @@ import classes from "./movement-list.page.module.css";
 import { MovementListTableComponent } from "./components/movement-list-table.component";
 import { AccountVm, MovementVm } from "./movement-list.vm";
 import {
-  // mapAccountDetailListFormApiToVm,
+  mapAccountDetailListFormApiToVm,
   mapMovementListFromApiToVm,
 } from "./movement-list.mapper";
 import { useParams } from "react-router-dom";
@@ -22,7 +22,9 @@ export const MovementListPage: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    getAccountDetails().then((result) => setAccountDetails(result));
+    getAccountDetails(id).then((result) =>
+      setAccountDetails(mapAccountDetailListFormApiToVm(result))
+    );
   }, []);
 
   return (
