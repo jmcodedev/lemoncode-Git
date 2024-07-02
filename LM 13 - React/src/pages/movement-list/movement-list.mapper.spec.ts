@@ -78,7 +78,7 @@ describe("pages/movement-list/movement-list.mapper specs", () => {
           id: "",
           iban: "",
           name: "",
-          balance: "0",
+          balance: 0,
         });
       });
       it("should return the same object but using VM model structure", () => {
@@ -98,7 +98,7 @@ describe("pages/movement-list/movement-list.mapper specs", () => {
           id: "1",
           iban: "ES91 2100 0418 4502 0005 1332",
           name: "Gastos mes",
-          balance: "1490",
+          balance: 1490,
         });
       });
     });

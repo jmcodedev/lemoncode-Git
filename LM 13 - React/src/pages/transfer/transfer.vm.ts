@@ -53,11 +53,11 @@ export const createEmptyTransferError = (): TransferError => ({
 });
 
 export interface FieldValidationResult {
-  succeded: boolean;
+  succeeded: boolean;
   errorMessage?: string;
 }
 
 export interface FormValidationResult {
-  succeded: boolean;
-  fieldErrors: TransferError;
+  succeeded: boolean;
+  errors: TransferError;
 }
