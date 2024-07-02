@@ -23,6 +23,28 @@
       "name": "Ahorro",
       "balance": 8500,
       "lastTransaction": "2019-11-15T08:29:04"
+    },
+    {
+      "id": "vvIbP_p"
+    },
+    {
+      "id": "9RsFJeN"
+    },
+    {
+      "iban": "HU04 3829 0842 0490 0441 5314 8309",
+      "name": "Test account",
+      "type": "Gastos mes",
+      "balance": 0,
+      "lastTransaction": "2024-07-02T18:53:42.341Z",
+      "id": "aqj80HE"
+    },
+    {
+      "iban": "SA98 4107 4104 1A76 89D2 2688",
+      "name": "test 2",
+      "type": "Ahorro",
+      "balance": 0,
+      "lastTransaction": "2024-07-02T18:55:03.674Z",
+      "id": "TuDBghp"
     }
   ],
   "movements": [
@@ -108,5 +130,50 @@
       "accountId": "3"
     }
   ],
-  "transfer": []
+  "transfer": [
+    {
+      "accountId": "2",
+      "iban": "ES6621000418401234567891",
+      "name": "Paco",
+      "amount": "200",
+      "concept": "Abduscan",
+      "notes": "",
+      "transferDate": "Tue Jul 02 2024",
+      "realTransferDate": "2024-07-11",
+      "id": 1
+    },
+    {
+      "accountId": "2",
+      "iban": "ES6621000418401234567891",
+      "name": "Paco",
+      "amount": "200",
+      "concept": "Abduscan",
+      "notes": "",
+      "transferDate": "Tue Jul 02 2024",
+      "realTransferDate": "2024-07-11",
+      "id": 2
+    },
+    {
+      "accountId": "2",
+      "iban": "ES6621000418401234567891",
+      "name": "Paco",
+      "amount": "200",
+      "concept": "Abduscan",
+      "notes": "",
+      "transferDate": "Tue Jul 02 2024",
+      "realTransferDate": "2024-07-11",
+      "id": 3
+    },
+    {
+      "accountId": "2",
+      "iban": "ES6621000418401234567891",
+      "name": "Paco",
+      "amount": "200",
+      "concept": "Abduscan",
+      "notes": "",
+      "transferDate": "Tue Jul 02 2024",
+      "realTransferDate": "2024-07-11",
+      "id": 4
+    }
+  ]
 }

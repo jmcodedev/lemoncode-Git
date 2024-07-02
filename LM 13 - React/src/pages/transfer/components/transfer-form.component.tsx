@@ -11,19 +11,20 @@ import classes from "./transfer-form.component.module.css";
 interface Props {
   accountList: AccountVm[];
   onTrannsfer: (transferInfo: TransferVm) => void;
+  defaultAccountId?: string;
 }
 
 export const TransferFormComponent: React.FC<Props> = (props) => {
-  const { accountList, onTrannsfer } = props;
+  const { accountList, onTrannsfer, defaultAccountId } = props;
   const [transfer, setTransfer] = useState<TransferVm>(createEmptyTransferVm());
   const [errors, setErrors] = useState<TransferError>(
     createEmptyTransferError()
   );
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formValidationResults = validateForm(transfer);
     setErrors(formValidationResults.errors);
-    onTrannsfer(transfer);
     if (formValidationResults.succeeded) {
       onTrannsfer(transfer);
     }
@@ -36,7 +37,9 @@ export const TransferFormComponent: React.FC<Props> = (props) => {
   ) => {
     setTransfer({ ...transfer, [e.target.name]: e.target.value });
   };
-
+  React.useEffect(() => {
+    setTransfer({ ...transfer, accountId: defaultAccountId ?? "" });
+  }, []);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -54,7 +57,7 @@ export const TransferFormComponent: React.FC<Props> = (props) => {
                   {account.alias}
                 </option>
               ))}
-              <option value="">Seleccione una cuenta</option>
+              <option>Seleccione una cuenta</option>
             </select>
             <p className={classes.error}>{errors.accountId}</p>
           </div>

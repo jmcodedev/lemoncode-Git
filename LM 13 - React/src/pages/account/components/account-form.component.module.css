@@ -1,0 +1,33 @@
+.form-container {
+  border: none;
+  border-bottom: 1px solid var(--secondary_color);
+  padding: 40px 0;
+}
+.account-select {
+  width: 200px;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.form-container div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.form-container label {
+  margin-right: 20px;
+  min-width: 300px;
+  text-align: right;
+}
+
+.form-container input,
+.form-container select {
+  width: 200px;
+}
